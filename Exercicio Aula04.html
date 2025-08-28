@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Visualizador de Estrutura DOM (Simples)</title>
+  <style>
+    /* Visual minimalista para “ver” os blocos */
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif; }
+    main { padding: 12px; }
+
+    /* Cada bloco delimitado e legível: */
+    .box {
+      position: relative;
+      border: 1px dashed #8a8a8a;
+      margin: 8px;
+      padding: 8px;
+      background: #fff;
+    }
+    /* Rótulo discreto no canto (tag#id) */
+    .box[data-label]::before {
+      content: attr(data-label);
+      position: absolute;
+      top: -10px; left: 8px;
+      font-size: 11px;
+      line-height: 1;
+      color: #333;
+      background: #fff;
+      padding: 2px 6px;
+      border: 1px solid #cfcfcf;
+      border-radius: 6px;
+    }
+    /* Dar um mínimo de altura pros contêineres vazios ficarem visíveis */
+    main.box, section.box, article.box, div.box { min-height: 40px; }
+
+    /* Botões só com um pouco de respiro para não “sumirem” */
+    button.box { display: inline-block; padding: 6px 10px; border-radius: 6px; border: 1px solid #cfcfcf; }
+
+    /* Utilitários de destaque para as atividades */
+    .hl { outline: 2px solid #5aa9ff; background: #eef6ff; }
+  </style>
+</head>
+<body>
+  <main id="MainRoot">
+    <div id="Renato">
+      <section id="Maria">
+        <button>Inicio</button>
+        <article>
+          <div id="Paulo">
+            <button>Origem</button>
+          </div>
+        </article>
+      </section>
+    </div>
+
+    <section id="Marta"></section>
+
+    <section id="Marcia">
+      <div id="Rodolfo"></div>
+    </section>
+  </main>
+
+  <script>
+    // ---- Preparação visual: rotular e delimitar os blocos não usar esse bloco usar o proximo bloco <script>----
+    (function rotular() {
+      const targets = document.querySelectorAll('main, section, article, div, button');
+      for (const el of targets) {
+        el.classList.add('box');
+        const tag = el.tagName.toLowerCase();
+        const id  = el.id ? `#${el.id}` : '';
+        el.setAttribute('data-label', `${tag}${id}`);
+      }
+    })();
+
+    // ---- Helpers para as atividades ----
+    function log(...args){ console.log(...args); }
+    function highlight(el) {
+      if (!el) return;
+      el.classList.add('hl');
+      setTimeout(() => el.classList.remove('hl'), 1200);
+    }
+ </script>
+ <script> 
+const primeiro = document.querySelector("section");
+const segundo = primeiro.parentElement.nextElementSibling;
+segundo.style.backgroundColor="lightblue";
+log("segunda section: ",segundo)
+highlight(segundo)
+
+ </script>
+</body>
+</html>
