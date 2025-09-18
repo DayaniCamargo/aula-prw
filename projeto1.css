@@ -1,0 +1,16 @@
+#canvas1{
+    position: absolute;
+    top: 50%; /*topo*/
+    left: 50%; /*esquerda*/
+    transform: translate(-50%,-50%);
+    width: 600px; /*altura*/
+    height: 600px; /*largura*/
+}
+
+.controls{
+    position: absolute;
+    z-index: 10;
+    top: 100px;
+    left: 50%;
+    transform: translate(-50%);
+}
